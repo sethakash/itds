@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.albertsons.aaai.sarea</groupId>
+		<artifactId>workflow</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>itds-flow</artifactId>
+	<packaging>jar</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>com.albertsons.aaai.sarea</groupId>
+			<artifactId>setup</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>step</type>
+		</dependency>
+	<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>accounting-ingest</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>item-ingest</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>accounting-transform</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>item-transform</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>accounting-merge</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>item-merge</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+<dependency>
+<groupId>com.albertsons.aaai.sarea</groupId>
+<artifactId>cleanup</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<type>step</type>
+</dependency>
+</dependencies>
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>com.exadatum.xsuite.xmaven</groupId>
+                <artifactId>workflow-maven-plugin</artifactId>
+                <configuration>
+                    <resources>
+                        <resource>
+                        	<directory>${multi.module.project.root.dir}/config/properties/</directory>
+                            <targetPath>${project.build.directory}/airflow</targetPath>
+                            <includes>
+                                <include>${project.artifactId}.properties</include>
+                            </includes>
+                        	<filtering>true</filtering>
+                        </resource>
+                    </resources>
+                    <scheduler>airflow</scheduler>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-workflow-files</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate-workflow</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>attach-zip-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>
+                                        ${project.build.directory}/airflow.zip
+                                    </file>
+                                    <type>zip</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,289 @@
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="GetItemMasterRetail" type="GetItemMasterRetailType"/>
+    <xs:complexType name="DescriptionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="Type" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="NoteType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="Type"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SenderIdType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="QualifierCd"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="ReceiverIdType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="QualifierCd"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DocumentType">
+        <xs:sequence>
+            <xs:element type="xs:float" name="DocumentID"/>
+            <xs:element type="xs:string" name="AlternateDocumentID"/>
+            <xs:element type="xs:string" name="InboundOutboundInd"/>
+            <xs:element type="xs:string" name="DocumentNm"/>
+            <xs:element type="xs:string" name="CreationDt"/>
+            <xs:element type="DescriptionType" name="Description" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="xs:string" name="SourceApplicationCd" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="xs:string" name="TargetApplicationCd"/>
+            <xs:element type="NoteType" name="Note"/>
+            <xs:element type="xs:string" name="GatewayNm"/>
+            <xs:element type="SenderIdType" name="SenderId"/>
+            <xs:element type="ReceiverIdType" name="ReceiverId"/>
+            <xs:element type="xs:string" name="RoutingSystemNm"/>
+            <xs:element type="xs:string" name="InternalFileTransferInd"/>
+            <xs:element type="xs:string" name="InterchangeDate"/>
+            <xs:element type="xs:time" name="InterchangeTime"/>
+            <xs:element type="xs:string" name="ExternalTargetInd"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="ReleaseId"/>
+        <xs:attribute type="xs:string" name="VersionId"/>
+        <xs:attribute type="xs:string" name="SystemEnvironmentCd"/>
+    </xs:complexType>
+    <xs:complexType name="DocumentActionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="ActionTypeCd"/>
+            <xs:element type="xs:string" name="RecordTypeCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DocumentDataType">
+        <xs:sequence>
+            <xs:element type="DocumentType" name="Document"/>
+            <xs:element type="DocumentActionType" name="DocumentAction"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CorporateItemCdType">
+        <xs:simpleContent>
+            <xs:extension base="xs:float">
+                <xs:attribute type="xs:string" name="Qualifier" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="RetailScanCdType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="UPCNbr"/>
+            <xs:element type="xs:string" name="UPCTxt"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="Qualifier"/>
+    </xs:complexType>
+    <xs:complexType name="ProductGroupType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="ProductGroupCd"/>
+            <xs:element type="xs:string" name="ProductGroupNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProductCategoryCdType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="ProductCategoryCd"/>
+            <xs:element type="xs:string" name="ProductCategoryNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProductClassCdType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="ProductClassCd"/>
+            <xs:element type="xs:string" name="ProductClassNm"/>
+            <xs:element type="xs:string" name="RetailSectionCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProductSubClassLevel1Type">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="ProductSubClassLevel1Cd"/>
+            <xs:element type="xs:string" name="ProductSubClassLeve1Nm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProductSubClassLevel2Type">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="ProductSubClassLevel2Cd"/>
+            <xs:element type="xs:string" name="ProductSubClassLevel2Nm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProductHierarchyType">
+        <xs:sequence>
+            <xs:element type="ProductGroupType" name="ProductGroup"/>
+            <xs:element type="ProductCategoryCdType" name="ProductCategoryCd"/>
+            <xs:element type="ProductClassCdType" name="ProductClassCd"/>
+            <xs:element type="ProductSubClassLevel1Type" name="ProductSubClassLevel1"/>
+            <xs:element type="ProductSubClassLevel2Type" name="ProductSubClassLevel2"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ItemDscType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="POSItemDsc"/>
+            <xs:element type="xs:string" name="RetailItemDsc"/>
+            <xs:element type="xs:string" name="InternetItemDsc"/>
+            <xs:element type="xs:string" name="WarehouseItemDsc"/>
+            <xs:element type="xs:string" name="VendorItemDsc"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UPCType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="UPCNbr"/>
+            <xs:element type="xs:string" name="UPCTxt"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="Qualifier"/>
+    </xs:complexType>
+    <xs:complexType name="ItemIdType">
+        <xs:sequence>
+            <xs:element type="UPCType" name="UPC"/>
+            <xs:element type="xs:string" name="GTINID"/>
+            <xs:element type="xs:string" name="VendorProductID"/>
+            <xs:element type="xs:string" name="ManufProductId"/>
+            <xs:element type="xs:string" name="SystemSpecificItemId"/>
+            <xs:element type="xs:string" name="RFID"/>
+            <xs:element type="xs:string" name="InternalItemId"/>
+            <xs:element type="xs:string" name="BranchItemCd"/>
+            <xs:element type="xs:string" name="ItemDescription"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ShelfUnitDimensionsType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="ShelfUnitSizeDsc"/>
+            <xs:element type="xs:byte" name="SizeQty"/>
+            <xs:element type="xs:string" name="SizeUOMCd"/>
+            <xs:element type="xs:string" name="AlternateSizeInd"/>
+            <xs:element type="xs:string" name="AlternateSizeDsc"/>
+            <xs:element type="xs:byte" name="ItemHeight"/>
+            <xs:element type="xs:byte" name="ItemDepth"/>
+            <xs:element type="xs:byte" name="ItemWidth"/>
+            <xs:element type="xs:string" name="ItemPackUOMCd"/>
+            <xs:element type="xs:byte" name="ItemWt"/>
+            <xs:element type="xs:string" name="ItemWtUOM"/>
+            <xs:element type="xs:byte" name="InnerPackQty"/>
+            <xs:element type="xs:short" name="ShelfPackageCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ScaleUnitDimensionType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="Netweight"/>
+            <xs:element type="xs:string" name="NetWeightUOM"/>
+            <xs:element type="xs:string" name="ScalePackageType"/>
+            <xs:element type="xs:string" name="Packagesize"/>
+            <xs:element type="xs:string" name="Packagecolor"/>
+            <xs:element type="xs:string" name="PackagesoakpadInd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CommonItemGroupType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="CommonRetailCd"/>
+            <xs:element type="xs:string" name="CommonPromotionCd"/>
+            <xs:element type="xs:string" name="ConsumerSellingCd"/>
+            <xs:element type="xs:byte" name="ComparisonItemTypeCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ItemSourcingTypeType">
+        <xs:sequence>
+            <xs:element type="xs:short" name="DSDInd"/>
+            <xs:element type="xs:short" name="WarehouseInd"/>
+            <xs:element type="xs:short" name="ManufacturingPlantInd"/>
+            <xs:element type="xs:short" name="WholesaleInd"/>
+            <xs:element type="xs:short" name="StoreCreatedItemInd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RetailStoreLevelAttributesType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="RetailStoreId"/>
+            <xs:element type="CorporateItemCdType" name="CorporateItemCd"/>
+            <xs:element type="ItemSourcingTypeType" name="ItemSourcingType"/>
+            <xs:element type="xs:string" name="WICItemInd"/>
+            <xs:element type="xs:string" name="FSAEligibleInd"/>
+            <xs:element type="xs:byte" name="BottleDepositCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BrandType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="BrandCd"/>
+            <xs:element type="xs:string" name="BrandNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ScaleDataType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="ScaleShelfLifeUseByDays"/>
+            <xs:element type="xs:byte" name="ScaleMessageCd"/>
+            <xs:element type="xs:byte" name="ScaleActionNbr"/>
+            <xs:element type="xs:byte" name="ScaleDestCd"/>
+            <xs:element type="xs:string" name="ScaleGradeCd"/>
+            <xs:element type="xs:byte" name="ScaleActionCd"/>
+            <xs:element type="xs:short" name="SellByDaysNbr"/>
+            <xs:element type="xs:short" name="ScalePullByDaysNbr"/>
+            <xs:element type="xs:byte" name="ScaleGraphic1Nbr"/>
+            <xs:element type="xs:byte" name="ScaleGraphic2Nbr"/>
+            <xs:element type="xs:byte" name="ScalePLUCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OrgMasterNameTypeType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="OrgEntityType"/>
+            <xs:element type="xs:string" name="OrgEntityValue"/>
+            <xs:element type="xs:string" name="OrgEntityNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RetailItemDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="CorporationId"/>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:string" name="ROGCd"/>
+            <xs:element type="CorporateItemCdType" name="CorporateItemCd"/>
+            <xs:element type="RetailScanCdType" name="RetailScanCd"/>
+            <xs:element type="ProductHierarchyType" name="ProductHierarchy"/>
+            <xs:element type="ItemDscType" name="ItemDsc"/>
+            <xs:element type="ItemIdType" name="ItemId"/>
+            <xs:element type="xs:float" name="PriceLookUpCd"/>
+            <xs:element type="ShelfUnitDimensionsType" name="ShelfUnitDimensions"/>
+            <xs:element type="ScaleUnitDimensionType" name="ScaleUnitDimension"/>
+            <xs:element type="CommonItemGroupType" name="CommonItemGroup"/>
+            <xs:element type="RetailStoreLevelAttributesType" name="RetailStoreLevelAttributes" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="BrandType" name="Brand"/>
+            <xs:element type="xs:float" name="RingTypeCd"/>
+            <xs:element type="xs:float" name="DemographicCd"/>
+            <xs:element type="xs:float" name="FoodStampCd"/>
+            <xs:element type="xs:float" name="HiconeInd"/>
+            <xs:element type="xs:float" name="TradingStampCd"/>
+            <xs:element type="xs:float" name="SalesRestrictionCd"/>
+            <xs:element type="xs:float" name="VendorCouponGroupCd"/>
+            <xs:element type="xs:float" name="MixAndMatchGroupCd"/>
+            <xs:element type="xs:float" name="DepartmentOverrideCd"/>
+            <xs:element type="xs:float" name="UnitPriceMeasureCd"/>
+            <xs:element type="xs:string" name="PricerCommentTxt"/>
+            <xs:element type="xs:string" name="ReviewCd"/>
+            <xs:element type="xs:string" name="LastFileMaintenanceDt"/>
+            <xs:element type="ScaleDataType" name="ScaleData"/>
+            <xs:element type="xs:string" name="CouponTypeInd"/>
+            <xs:element type="xs:float" name="CouponFamilyCd"/>
+            <xs:element type="xs:string" name="PricerequiredInd"/>
+            <xs:element type="xs:float" name="NonCashAccountNbr"/>
+            <xs:element type="xs:string" name="NonCashAccountType"/>
+            <xs:element type="xs:float" name="SignCount1"/>
+            <xs:element type="xs:float" name="SignCount2"/>
+            <xs:element type="xs:string" name="SignCount3"/>
+            <xs:element type="xs:string" name="NIMInfoInd"/>
+            <xs:element type="xs:float" name="SubClubGroup1Id"/>
+            <xs:element type="xs:float" name="SubClubGroup2Id"/>
+            <xs:element type="xs:string" name="GiftCardTypeInd"/>
+            <xs:element type="xs:string" name="OrganicItemInd"/>
+            <xs:element type="xs:string" name="HazardousItemInd"/>
+            <xs:element type="xs:string" name="HazardousClassCd"/>
+            <xs:element type="xs:string" name="HazardousClassDsc"/>
+            <xs:element type="OrgMasterNameTypeType" name="OrgMasterNameType" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GetItemMasterRetailType">
+        <xs:sequence>
+            <xs:element type="DocumentDataType" name="DocumentData"/>
+            <xs:element type="RetailItemDataType" name="RetailItemData"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+

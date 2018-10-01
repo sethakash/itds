@@ -1,0 +1,324 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://collab.safeway.com/it/architecture/info/default.aspx">
+    <xs:element name="GetAccountingFacility"
+                type="def:GetAccountingFacilityType"/>
+    <xs:complexType name="DescriptionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="Type" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="NoteType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="Type"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SenderIdType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="QualifierCd"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="ReceiverIdType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="QualifierCd"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DocumentType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="DocumentID"/>
+            <xs:element type="xs:string" name="AlternateDocumentID"/>
+            <xs:element type="xs:string" name="InboundOutboundInd"/>
+            <xs:element type="xs:string" name="DocumentNm"/>
+            <xs:element type="xs:dateTime" name="CreationDt"/>
+            <xs:element type="def:DescriptionType" name="Description"
+                        maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="xs:string" name="SourceApplicationCd"
+                        maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="xs:string" name="TargetApplicationCd"/>
+            <xs:element type="def:NoteType" name="Note"/>
+            <xs:element type="xs:string" name="GatewayNm"/>
+            <xs:element type="def:SenderIdType" name="SenderId"/>
+            <xs:element type="def:ReceiverIdType" name="ReceiverId"/>
+            <xs:element type="xs:string" name="RoutingSystemNm"/>
+            <xs:element type="xs:string" name="InternalFileTransferInd"/>
+            <xs:element type="xs:date" name="InterchangeDate"/>
+            <xs:element type="xs:time" name="InterchangeTime"/>
+            <xs:element type="xs:string" name="ExternalTargetInd"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="ReleaseId"/>
+        <xs:attribute type="xs:string" name="VersionId"/>
+        <xs:attribute type="xs:string" name="SystemEnvironmentCd"/>
+    </xs:complexType>
+    <xs:complexType name="DocumentActionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="ActionTypeCd"/>
+            <xs:element type="xs:string" name="RecordTypeCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DocumentDataType">
+        <xs:sequence>
+            <xs:element type="def:DocumentType" name="Document"/>
+            <xs:element type="def:DocumentActionType" name="DocumentAction"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CompanyType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="CompanyId"/>
+            <xs:element type="xs:string" name="CompanyNm"/>
+            <xs:element type="xs:string" name="AccountingUnitNm"/>
+            <xs:element type="xs:byte" name="FiscalYearPeriodNbr"/>
+            <xs:element type="xs:string" name="LevelDsc" maxOccurs="unbounded"
+                        minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DivisionAddressType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="AddressUsageTypeCd"/>
+            <xs:element type="xs:string" name="AddressLine1txt"/>
+            <xs:element type="xs:string" name="AddressLine2txt"/>
+            <xs:element type="xs:string" name="CityNm"/>
+            <xs:element type="xs:string" name="CountyNm"/>
+            <xs:element type="xs:string" name="PostalZoneCd"/>
+            <xs:element type="xs:string" name="StateCd"/>
+            <xs:element type="xs:string" name="CountryCd"/>
+            <xs:element type="xs:byte" name="LatitudeDegree"/>
+            <xs:element type="xs:byte" name="LongitudeDegree"/>
+            <xs:element type="xs:string" name="TimeZoneCd"/>
+            <xs:element type="xs:string" name="PhoneNbr" maxOccurs="unbounded"
+                        minOccurs="0"/>
+            <xs:element type="xs:string" name="FaxNbr"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DivisionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:string" name="DivisionNm"/>
+            <xs:element type="xs:string" name="SalesTypeCd"/>
+            <xs:element type="xs:string" name="SalesChannelCd"/>
+            <xs:element type="xs:string" name="AdminDivisionInd"/>
+            <xs:element type="xs:string" name="BusinessTypeCd"/>
+            <xs:element type="def:DivisionAddressType" name="DivisionAddress"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ReportingDivisionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:string" name="DivisionNm"/>
+            <xs:element type="xs:string" name="SalesTypeCd"/>
+            <xs:element type="xs:string" name="SalesChannelCd"/>
+            <xs:element type="xs:string" name="AdminDivisionInd"/>
+            <xs:element type="xs:string" name="BusinessTypeCd"/>
+            <xs:element type="def:DivisionAddressType" name="DivisionAddress"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OperatingAreaType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:byte" name="OperatingAreaId"/>
+            <xs:element type="xs:string" name="OperatingAreaNbr"/>
+            <xs:element type="xs:string" name="OperatingAreaNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ParentOperatingAreaType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:byte" name="OperatingAreaId"/>
+            <xs:element type="xs:string" name="OperatingAreaNbr"/>
+            <xs:element type="xs:string" name="OperatingAreaNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DistrictType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:byte" name="DistrictId"/>
+            <xs:element type="xs:string" name="DistrictNm"/>
+            <xs:element type="xs:string" name="DistrictCd"/>
+            <xs:element type="xs:string" name="DistrictManagerNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityDataType">
+        <xs:sequence>
+            <xs:element type="xs:byte" name="RetailStoreId"/>
+            <xs:element type="xs:date" name="FirstEffectiveDt"/>
+            <xs:element type="xs:date" name="LastEffectiveDt"/>
+            <xs:element type="xs:string" name="RetailFacilityTypeCd"/>
+            <xs:element type="xs:byte" name="FacilitySubTypeCd"/>
+            <xs:element type="xs:string" name="StoreNm"/>
+            <xs:element type="xs:string" name="AltStoreId"/>
+            <xs:element type="xs:string" name="StoreBannerCd"/>
+            <xs:element type="xs:string" name="StoreManagerNm"/>
+            <xs:element type="xs:byte" name="ParkingSpacesCnt"/>
+            <xs:element type="xs:byte" name="StoreAreaSFTNbr"/>
+            <xs:element type="xs:byte" name="SalesAreainSFTNbr"/>
+            <xs:element type="xs:byte" name="DisplayAreainSFTNbr"/>
+            <xs:element type="xs:string" name="StoreFormatTypeCd"/>
+            <xs:element type="xs:string" name="SpecialFeaturesCd"/>
+            <xs:element type="xs:date" name="StoreOpenDt"/>
+            <xs:element type="xs:date" name="StoreFirstOpenDt"/>
+            <xs:element type="xs:date" name="StoreCloseDt"/>
+            <xs:element type="xs:date" name="StoreCloseAnnouncedDt"/>
+            <xs:element type="xs:string" name="StoreCurrentStatusCd"/>
+            <xs:element type="xs:string" name="TierCompanyCd"/>
+            <xs:element type="xs:string" name="StorePhoneNbr"/>
+            <xs:element type="xs:string" name="StoreFaxNbr"/>
+            <xs:element type="xs:date" name="FileMaintenanceDt"/>
+            <xs:element type="xs:string" name="FileMaintenanceUserId"/>
+            <xs:element type="xs:date" name="LastRemodelDt"/>
+            <xs:element type="xs:date" name="LastDecorationDt"/>
+            <xs:element type="xs:string" name="LastDecorationTypeCd"/>
+            <xs:element type="xs:string" name="ReplacedStoreId"/>
+            <xs:element type="xs:string" name="ReplacedCorporationId"/>
+            <xs:element type="xs:string" name="ReplacedDivisionId"/>
+            <xs:element type="xs:string" name="ScanEquipmentVendorCd"/>
+            <xs:element type="xs:string" name="CompanyNbr"/>
+            <xs:element type="xs:string" name="AcquiredFromNm"/>
+            <xs:element type="xs:date" name="AcquiredDt"/>
+            <xs:element type="xs:string" name="OtherSystemStoreNbr"/>
+            <xs:element type="xs:date" name="ConversionDt"/>
+            <xs:element type="xs:string" name="ConversionInd"/>
+            <xs:element type="xs:string" name="HomeDeliveryInd"/>
+            <xs:element type="xs:date" name="TempCloseStartDt"/>
+            <xs:element type="xs:date" name="TempCloseEndDt"/>
+            <xs:element type="xs:string" name="UpgradeClassCd"/>
+            <xs:element type="xs:byte" name="LastDecorationCostAmt"/>
+            <xs:element type="xs:string" name="FuelRackCd"/>
+            <xs:element type="xs:date" name="OrderStartDt"/>
+            <xs:element type="xs:date" name="OrderEndDt"/>
+            <xs:element type="xs:date" name="OrderTempStopStartDt"/>
+            <xs:element type="xs:date" name="OrderTempStopEndDt"/>
+            <xs:element type="xs:string" name="TobaccoLicenseNbr"/>
+            <xs:element type="xs:string" name="MilkAreaCd"/>
+            <xs:element type="xs:string" name="FinancialServicesInd"/>
+            <xs:element type="xs:string" name="PayrollUnitCd"/>
+            <xs:element type="xs:byte" name="AuthorizedHeadCountNbr"/>
+            <xs:element type="xs:string" name="ManagerUserId"/>
+            <xs:element type="xs:byte" name="ManagerEmployeeId"/>
+            <xs:element type="xs:string" name="SeaSectionCd"/>
+            <xs:element type="xs:string" name="SeaSubsectionCd"/>
+            <xs:element type="xs:string" name="TimeAndAttendanceSystemInd"/>
+            <xs:element type="xs:string" name="TimeClockFormatCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RegionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="RegionId"/>
+            <xs:element type="xs:string" name="RegionNm"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ROGType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="DivisionId"/>
+            <xs:element type="xs:string" name="RogId"/>
+            <xs:element type="xs:string" name="RogNm"/>
+            <xs:element type="xs:byte" name="RogRankNbr"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityAddressDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="AddressUsageTypeCd"/>
+            <xs:element type="xs:string" name="AddressLine1txt"/>
+            <xs:element type="xs:string" name="AddressLine2txt"/>
+            <xs:element type="xs:string" name="CityNm"/>
+            <xs:element type="xs:string" name="CountyNm"/>
+            <xs:element type="xs:string" name="PostalZoneCd"/>
+            <xs:element type="xs:string" name="StateCd"/>
+            <xs:element type="xs:string" name="CountryCd"/>
+            <xs:element type="xs:byte" name="LatitudeDegree"/>
+            <xs:element type="xs:byte" name="LongitudeDegree"/>
+            <xs:element type="xs:string" name="TimeZoneCd"/>
+            <xs:element type="xs:string" name="PhoneNbr" maxOccurs="unbounded"
+                        minOccurs="0"/>
+            <xs:element type="xs:string" name="FaxNbr"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DepartmentHoursType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="StoreDepartmentId"/>
+            <xs:element type="xs:string" name="WeekDay"/>
+            <xs:element type="xs:time" name="OpenHr"/>
+            <xs:element type="xs:time" name="CloseHr"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityDepartmentDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="RetailStoreId"/>
+            <xs:element type="xs:string" name="DepartmentId"/>
+            <xs:element type="xs:date" name="FirstEffectiveDt"/>
+            <xs:element type="xs:string" name="DepartmentNm"/>
+            <xs:element type="xs:date" name="LastEffectiveDt"/>
+            <xs:element type="xs:byte" name="SalesAreaSFTNbr"/>
+            <xs:element type="xs:byte" name="ShelfUnitCnt"/>
+            <xs:element type="xs:byte" name="DisplayAreaSFTNbr"/>
+            <xs:element type="xs:string" name="AddressLineTxt"/>
+            <xs:element type="def:DepartmentHoursType" name="DepartmentHours"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SectionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="SectionCd"/>
+            <xs:element type="xs:string" name="SectionNm"/>
+            <xs:element type="xs:string" name="SectionTypeCd"/>
+            <xs:element type="xs:string" name="BusinessUnitCd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityDepartmentSectionTypeType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="RetailStoreId"/>
+            <xs:element type="xs:string" name="DepartmentId"/>
+            <xs:element type="xs:date" name="FirstEffectiveDt"/>
+            <xs:element type="xs:date" name="LastEffectiveDt"/>
+            <xs:element type="xs:string" name="DepartmentNm"/>
+            <xs:element type="def:SectionType" name="Section"
+                        maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityHoursDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="RetailStoreId"/>
+            <xs:element type="xs:string" name="WeekDay"/>
+            <xs:element type="xs:time" name="OpenHr"/>
+            <xs:element type="xs:time" name="CloseHr"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AccountingFacilityDataType">
+        <xs:sequence>
+            <xs:element type="def:CompanyType" name="Company"/>
+            <xs:element type="def:DivisionType" name="Division"/>
+            <xs:element type="def:ReportingDivisionType"
+                        name="ReportingDivision"/>
+            <xs:element type="def:OperatingAreaType" name="OperatingArea"/>
+            <xs:element type="def:ParentOperatingAreaType"
+                        name="ParentOperatingArea"/>
+            <xs:element type="def:DistrictType" name="District"/>
+            <xs:element type="def:FacilityDataType" name="FacilityData"/>
+            <xs:element type="def:RegionType" name="Region"/>
+            <xs:element type="def:ROGType" name="ROG"/>
+            <xs:element type="def:FacilityAddressDataType"
+                        name="FacilityAddressData"/>
+            <xs:element type="def:FacilityDepartmentDataType"
+                        name="FacilityDepartmentData" maxOccurs="unbounded"
+                        minOccurs="0"/>
+            <xs:element type="def:FacilityDepartmentSectionTypeType"
+                        name="FacilityDepartmentSectionType"
+                        maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="def:FacilityHoursDataType"
+                        name="FacilityHoursData" maxOccurs="unbounded"
+                        minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GetAccountingFacilityType">
+        <xs:sequence>
+            <xs:element type="def:DocumentDataType" name="DocumentData"/>
+            <xs:element type="def:AccountingFacilityDataType"
+                        name="AccountingFacilityData" maxOccurs="unbounded"
+                        minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
